@@ -21,12 +21,12 @@
 </template>
 
 <script>
-import { ref } from '@vue/reactivity';
+import { computed, ref } from '@vue/reactivity';
   import { useStore } from 'vuex'
 export default {
   setup() {
     const store = useStore()
-  const username = ref(store.state.loggedUser)
+  const username = ref(computed(()=>store.state.loggedUser))
   return{username}
   }
 };
