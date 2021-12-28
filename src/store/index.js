@@ -2,11 +2,15 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    users: []
+    users: [],
+    loggedUser: null
   },
   mutations: {
     setUsers(state, payload) {
       state.users = payload
+    },
+    loggedUser(state, username){
+      state.loggedUser = username
     }
   },
   actions: {
@@ -18,13 +22,11 @@ export default createStore({
     login(context, { email, password }) {
 
       context.users.forEach(item => {
-        if (item.email == email && item.username == password)
+        if (item.email == email && item.username == password){
+          context.commit('loggedUser', {username: password})
+        }
       });
-      if (res) {
-        context.commit('setUser', res.user)
-      } else {
-        throw new Error('Could not complete Login')
-      }
+      
     },
   },
   modules: {
