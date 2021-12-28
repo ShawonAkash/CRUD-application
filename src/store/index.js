@@ -11,6 +11,8 @@ export default createStore({
     },
     loggedUser(state, username){
       state.loggedUser = username
+      console.log('commit touched')
+      console.log(state.loggedUser)
     }
   },
   actions: {
@@ -20,10 +22,12 @@ export default createStore({
         .then((data) => { context.commit('setUsers', data) })
     },
     login(context, { email, password }) {
-
-      context.users.forEach(item => {
-        if (item.email == email && item.username == password){
-          context.commit('loggedUser', {username: password})
+      console.log(context.state.users)
+      context.state.users.forEach(item => {
+        if (item.email === email && item.username === password){
+          console.log('login inside touched')
+          context.commit('loggedUser', password)
+          
         }
       });
       
